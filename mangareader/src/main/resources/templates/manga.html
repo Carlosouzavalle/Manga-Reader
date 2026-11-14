@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${nome}">Mangá</title>
+  <style>
+    body { margin:0; background:#111; color:#eee; font-family:system-ui, sans-serif; }
+    .wrap { max-width:800px; margin:0 auto; padding:24px; }
+    a.voltar { color:#9a9aa5; text-decoration:none; }
+    a.voltar:hover { color:#ff6b35; }
+    h1 { margin:12px 0 24px; }
+    .lista { display:flex; flex-direction:column; gap:8px; }
+    .cap { background:#1b1b1f; border:1px solid #2c2c33; border-radius:10px; padding:14px 16px; text-decoration:none; color:inherit; }
+    .cap:hover { border-color:#ff6b35; }
+    .vazio { color:#9a9aa5; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="voltar" th:href="@{/}">← Todos os mangás</a>
+    <h1 th:text="${nome}">Nome</h1>
+    <div class="lista">
+      <a class="cap" th:each="c : ${capitulos}"
+         th:href="@{/manga/{m}/cap/{c}(m=${mangaId}, c=${c.id()})}"
+         th:text="${c.name()}">Capítulo</a>
+    </div>
+    <p class="vazio" th:if="${#lists.isEmpty(capitulos)}">Nenhum capítulo encontrado nesta pasta.</p>
+  </div>
+</body>
+</html>
